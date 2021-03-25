@@ -16,7 +16,7 @@ const Dashboard = ({code}) => {
     return (
         <div className={classes.dashboard}>
             <Sidebar />
-            <Body />
+            <Body accessToken = {accessToken} />
         </div>
     )
 }

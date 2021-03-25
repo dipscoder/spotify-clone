@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import SearchIcon from "@material-ui/icons/Search";
 import { Avatar } from "@material-ui/core";
+
+import SpotifyWebApi from "spotify-web-api-node";
+
+const spotifyApi = new SpotifyWebApi({
+  clientId: "7b215911d14245089d73d78055353cb2",
+});
 
 // Styles
 const useStyles = makeStyles({
@@ -31,9 +37,27 @@ const useStyles = makeStyles({
   },
 });
 
-function Header() {
+function Header({accessToken}) {
   const classes = useStyles();
   const [search, setSearch] = useState("");
+  const [searchResult, setSearchResult] = useState([])
+
+  useEffect(() => {
+    if (!accessToken) return;
+
+    spotifyApi.setAccessToken(accessToken);
+  }, [accessToken]);
+
+  useEffect(() => {
+    if (!search) return setSearchResult([])
+    if (!accessToken) return
+
+    spotifyApi.searchTracks(search).then(res => {
+      console.log(res);
+    })
+  }, [search, accessToken]);
+
+
   return (
     <div className={classes.header}>
       <div className={classes.header__left}>

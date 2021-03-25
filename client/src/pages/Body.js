@@ -3,10 +3,8 @@ import Header from './Header';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
+// Styles
 const useStyles = makeStyles({
     body : {
         height: "100vh",
@@ -26,12 +24,12 @@ const useStyles = makeStyles({
 })
 
 
-const Body = () => {
+const Body = ({accessToken}) => {
     const classes = useStyles()
 
     return (
         <div className={classes.body}>
-            <Header />
+            <Header accessToken={accessToken} />
             Body
         </div>
     )
