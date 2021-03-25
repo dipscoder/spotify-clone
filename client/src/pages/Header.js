@@ -37,26 +37,50 @@ const useStyles = makeStyles({
   },
 });
 
-function Header({accessToken}) {
+function Header({ accessToken }) {
   const classes = useStyles();
   const [search, setSearch] = useState("");
-  const [searchResult, setSearchResult] = useState([])
+  const [searchResult, setSearchResult] = useState([]);
 
+  // * This will set the accessToken to the spotify api
   useEffect(() => {
     if (!accessToken) return;
 
     spotifyApi.setAccessToken(accessToken);
   }, [accessToken]);
 
+  // * This will give us the response, that we get from spotify api , of our searched term
   useEffect(() => {
-    if (!search) return setSearchResult([])
-    if (!accessToken) return
+    if (!search) return setSearchResult([]);
+    if (!accessToken) return;
 
-    spotifyApi.searchTracks(search).then(res => {
-      console.log(res);
-    })
+    spotifyApi.searchTracks(search).then((res) => {
+      // console.log(res);
+      // * Setting up the setSearchResult with the response that we get from the spotify api
+      setSearchResult(
+        res.body.tracks.items.map((track) => {
+          // This will get the smallest album img from the image array
+          let smallestAlbumImage = track.album.images.reduce(
+            (smallestImg, currentImg) => {
+              if (currentImg.height < smallestImg) return currentImg;
+              // else
+              return smallestImg;
+            },
+            track.album.images[0]
+          );
+          // Returning some specific things that we require in a object form
+          return {
+            artist: track.artists[0].name,
+            title: track.name,
+            uri: track.uri,
+            albumUrl: smallestAlbumImage.url,
+          };
+        })
+      );
+    });
   }, [search, accessToken]);
 
+  console.log(searchResult);
 
   return (
     <div className={classes.header}>
