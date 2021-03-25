@@ -54,7 +54,12 @@ function Header({ accessToken }) {
     if (!search) return setSearchResult([]);
     if (!accessToken) return;
 
+    // ! Problem - Api will be called whenever we change "search" state(means whenever we type something it will call api)
+    // ! Solution - So we need to cancel the request if the user is Typing and whenever he/she stops , we will call the api  
+    let cancel = false;
     spotifyApi.searchTracks(search).then((res) => {
+      if (cancel) return 
+
       // console.log(res);
       // * Setting up the setSearchResult with the response that we get from the spotify api
       setSearchResult(
@@ -78,6 +83,10 @@ function Header({ accessToken }) {
         })
       );
     });
+
+    // * This will set cancel = true(line 61) which will stop the execution of API calling (line 65)
+    // * Explanation - user types => & this useEffect(line 53) will run..., Also api calls take time and so in that mean time if user changes the "search" then the previous api call will get cancel 
+    return () => cancel = true
   }, [search, accessToken]);
 
   console.log(searchResult);
