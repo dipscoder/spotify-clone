@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import SearchIcon from "@material-ui/icons/Search";
 import { Avatar } from "@material-ui/core";
 
 import SpotifyWebApi from "spotify-web-api-node";
+import { SongContext } from "../SongContext";
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "7b215911d14245089d73d78055353cb2",
@@ -35,12 +36,14 @@ const useStyles = makeStyles({
       height: "100%",
     },
   },
+
+
 });
 
 function Header({ accessToken }) {
   const classes = useStyles();
   const [search, setSearch] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useContext(SongContext)
 
   // * This will set the accessToken to the spotify api
   useEffect(() => {
@@ -55,10 +58,10 @@ function Header({ accessToken }) {
     if (!accessToken) return;
 
     // ! Problem - Api will be called whenever we change "search" state(means whenever we type something it will call api)
-    // ! Solution - So we need to cancel the request if the user is Typing and whenever he/she stops , we will call the api  
+    // ! Solution - So we need to cancel the request if the user is Typing and whenever he/she stops , we will call the api
     let cancel = false;
     spotifyApi.searchTracks(search).then((res) => {
-      if (cancel) return 
+      if (cancel) return;
 
       // console.log(res);
       // * Setting up the setSearchResult with the response that we get from the spotify api
@@ -85,8 +88,8 @@ function Header({ accessToken }) {
     });
 
     // * This will set cancel = true(line 61) which will stop the execution of API calling (line 65)
-    // * Explanation - user types => & this useEffect(line 53) will run..., Also api calls take time and so in that mean time if user changes the "search" then the previous api call will get cancel 
-    return () => cancel = true
+    // * Explanation - user types => & this useEffect(line 53) will run..., Also api calls take time and so in that mean time if user changes the "search" then the previous api call will get cancel
+    return () => (cancel = true);
   }, [search, accessToken]);
 
   console.log(searchResult);
@@ -106,6 +109,7 @@ function Header({ accessToken }) {
         {/* <Avatar src={user?.images[0]?.url} alt={user?.display_name} /> */}
         {/* <h4>{user?.display_name}</h4> */}
       </div>
+ 
     </div>
   );
 }
