@@ -92,7 +92,7 @@ function Header({ accessToken }) {
     return () => (cancel = true);
   }, [search, accessToken]);
 
-  console.log(searchResult);
+  // console.log(searchResult);
 
   return (
     <div className={classes.header}>

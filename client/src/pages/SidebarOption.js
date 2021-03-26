@@ -11,13 +11,15 @@ const useStyles = makeStyles({
         cursor: "pointer",
         transition: "200ms color ease-in",
 
-        '& :hover' : {
+        '&:hover' : {
             color : "white",
         }
     },
     sidebarOption__icon: {
         padding: "0 10px",
         color: "white",
+        height: "40px",
+        width: "40px",
     }
 });
 

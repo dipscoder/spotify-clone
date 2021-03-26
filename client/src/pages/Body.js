@@ -1,7 +1,9 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import Header from './Header';
 
 import { makeStyles } from '@material-ui/core/styles';
+import TrackSearchResult from '../components/TrackSearchResult';
+import { SongContext } from "../SongContext";
 
 
 // Styles
@@ -14,25 +16,32 @@ const useStyles = makeStyles({
         padding: "30px",
         overflowY: "overlay",
 
-        '& ::-webkit-scrollbar' : {
+        '&::-webkit-scrollbar' : {
             display : "none"
         }
     },
-    // .body::-webkit-scrollbar {
-    //     display: none;
-    // }
+
+    all__songs : {
+        margin: "20px -30px",
+    }
 })
 
 
 const Body = ({accessToken}) => {
     const classes = useStyles()
-
+    const [searchResult, setSearchResult] = useContext(SongContext)
+    
     return (
-        <div className={classes.body}>
-            <Header accessToken={accessToken} />
-            Body
+      <div className={classes.body}>
+        <Header accessToken={accessToken} />
+        <div className={classes.all__songs}>
+          {searchResult.map((track) => {
+            return <TrackSearchResult track={track} key={track.uri} />;
+            // return <h1>Yoo</h1>
+          })}
         </div>
-    )
+      </div>
+    );
 }
 
 export default Body
