@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import SpotifyPlayer from "react-spotify-web-playback";
 
 const useStyles = makeStyles({
-  footer : {
+  footer: {
     position: "fixed",
     display: "flex",
     justifyContent: "space-between",
@@ -16,8 +16,18 @@ const useStyles = makeStyles({
   },
 });
 
+  // Read - https://www.npmjs.com/package/react-spotify-web-playback
+  // Whenever trackURI changes setPlay=true, so that player start playing that song immediately without pressing the play button
+  // "callback" in SpotifyPlayer holds the current state of the player, so if no song is playing we will setPlay=false
+  // magnifySliderOnHover - Magnify the player's slider on hover.
+
 const Player = ({ accessToken, trackUri }) => {
   const classes = useStyles();
+  const [play, setPlay] = useState(false);
+
+  useEffect(() => {
+    setPlay(true);
+  }, [trackUri]);
 
   if (!accessToken) return null;
   return (
@@ -25,7 +35,12 @@ const Player = ({ accessToken, trackUri }) => {
       <SpotifyPlayer
         token={accessToken}
         showSaveIcon
+        callback={(state) => { 
+          if (!state.isPlaying) setPlay(false);
+        }}
+        play={play}
         uris={trackUri ? [trackUri] : []}
+        magnifySliderOnHover={true}
       />
     </div>
   );
