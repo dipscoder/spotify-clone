@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { PlayTrackContext } from "../PlayTrackContext";
 
 const useStyles = makeStyles({
     songRow : {
@@ -39,9 +40,13 @@ const useStyles = makeStyles({
 
 const TrackSearchResult = ({ track }) => {
   const classes = useStyles()  
-  
+  const [playingTrack, setPlayingTrack] = useContext(PlayTrackContext)
+
+  function handleClick() {
+    setPlayingTrack(track)
+  }
   return (
-    <div className={classes.songRow}>
+    <div className={classes.songRow} onClick={handleClick}>
       <img className={classes.songRow__album} src={track.albumUrl} alt="" />
       <div className={classes.songRow__info}>
         <h1>{track.title}</h1>
