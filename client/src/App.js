@@ -1,7 +1,7 @@
 import Login from "./components/Login";
 import Dashboard from "./pages/Dashboard";
-import { PlayTrackProvider } from "./PlayTrackContext";
-import { SongProvider } from "./SongContext";
+import { PlayTrackProvider } from "./context/PlayTrackContext";
+import { SongProvider } from "./context/SongContext";
 
 // Url - http://localhost:3000/?code=someCode
 // This will get url string after the '?' & .get() will get the code value from the url

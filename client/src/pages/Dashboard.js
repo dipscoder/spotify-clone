@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Sidebar from "./Sidebar";
 import Body from "./Body";
 import Player from "../components/Player";
-import { PlayTrackContext } from "../PlayTrackContext";
+import { PlayTrackContext } from "../context/PlayTrackContext";
 
 const useStyles = makeStyles({
   dashboard__body: {

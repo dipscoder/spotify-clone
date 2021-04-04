@@ -3,7 +3,7 @@ import Header from './Header';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TrackSearchResult from '../components/TrackSearchResult';
-import { SongContext } from "../SongContext";
+import { SongContext } from "../context/SongContext";
 
 
 // Styles

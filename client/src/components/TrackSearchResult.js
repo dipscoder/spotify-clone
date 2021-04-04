@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { PlayTrackContext } from "../PlayTrackContext";
+import { PlayTrackContext } from "../context/PlayTrackContext";
 
 const useStyles = makeStyles({
     songRow : {

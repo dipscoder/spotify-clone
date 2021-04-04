@@ -5,7 +5,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { Avatar } from "@material-ui/core";
 
 import SpotifyWebApi from "spotify-web-api-node";
-import { SongContext } from "../SongContext";
+import { SongContext } from "../context/SongContext";
 
 const spotifyApi = new SpotifyWebApi({
   clientId: "7b215911d14245089d73d78055353cb2",
