@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const spotifyWebApi = require('spotify-web-api-node')
+const lyricsFinder = require('lyrics-finder')
 const cors = require('cors')
 
 const app = express()
@@ -62,8 +63,9 @@ app.post('/login', (req,res) => {
 
 })
 
-
-// spotifyApi.setAccessToken(data.body['access_token']);
-// spotifyApi.setRefreshToken(data.body['refresh_token']); 
+app.get('/lyrics', async (req,res)=> {
+  let lyrics = await lyricsFinder(req.query.artist,req.query.title) || "Sorry, No Lyrics Found 😕"
+  res.json({ lyrics })
+})
 
 app.listen(9000)

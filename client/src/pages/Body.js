@@ -1,10 +1,12 @@
-import React,{useContext, useState} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import Header from './Header';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TrackSearchResult from '../components/TrackSearchResult';
 import { SongContext } from "../context/SongContext";
-
+import { LyricsContext } from '../context/LyricsContext';
+import { PlayTrackContext } from '../context/PlayTrackContext';
+import axios from "axios";
 
 // Styles
 const useStyles = makeStyles({
@@ -23,6 +25,11 @@ const useStyles = makeStyles({
 
     all__songs : {
         margin: "20px -30px",
+    },
+
+    lyrics : {
+      textAlign: "center",
+      whiteSpace: "pre",
     }
 })
 
@@ -30,8 +37,27 @@ const useStyles = makeStyles({
 const Body = ({accessToken}) => {
     const classes = useStyles()
     const [searchResult, setSearchResult] = useContext(SongContext)
+    const [playingTrack,setPlayingTrack] = useContext(PlayTrackContext)
+    const [lyrics,setLyrics] = useContext(LyricsContext)
     const [search, setSearch] = useState("")
     
+    // To get lyrics
+    useEffect(() => {
+
+      if(!playingTrack) return;
+
+      axios.get("http://localhost:9000/lyrics",{
+        params: {
+          title: playingTrack.title,
+          artist: playingTrack.artist,
+        }
+      }).then((res) => {
+        // console.log(res);
+        setLyrics(res.data.lyrics)
+      })
+      
+    }, [playingTrack])
+
     return (
       <div className={classes.body}>
         <Header accessToken={accessToken} search={search} setSearch={setSearch} />
@@ -40,6 +66,9 @@ const Body = ({accessToken}) => {
             return <TrackSearchResult track={track} key={track.uri} setSearch={setSearch} />;
             // return <h1>Yoo</h1>
           })}
+          {searchResult.length === 0 && (
+            <div className={classes.lyrics}>{lyrics}</div>
+          )}
         </div>
       </div>
     );
