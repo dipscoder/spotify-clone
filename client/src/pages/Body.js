@@ -1,4 +1,4 @@
-import React,{useContext} from 'react'
+import React,{useContext, useState} from 'react'
 import Header from './Header';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,13 +30,14 @@ const useStyles = makeStyles({
 const Body = ({accessToken}) => {
     const classes = useStyles()
     const [searchResult, setSearchResult] = useContext(SongContext)
+    const [search, setSearch] = useState("")
     
     return (
       <div className={classes.body}>
-        <Header accessToken={accessToken} />
+        <Header accessToken={accessToken} search={search} setSearch={setSearch} />
         <div className={classes.all__songs}>
           {searchResult.map((track) => {
-            return <TrackSearchResult track={track} key={track.uri} />;
+            return <TrackSearchResult track={track} key={track.uri} setSearch={setSearch} />;
             // return <h1>Yoo</h1>
           })}
         </div>

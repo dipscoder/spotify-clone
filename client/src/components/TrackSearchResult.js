@@ -38,12 +38,13 @@ const useStyles = makeStyles({
 
 });
 
-const TrackSearchResult = ({ track }) => {
+const TrackSearchResult = ({ track, setSearch }) => {
   const classes = useStyles()  
   const [playingTrack, setPlayingTrack] = useContext(PlayTrackContext)
 
   function handleClick() {
     setPlayingTrack(track)
+    setSearch("")
   }
   return (
     <div className={classes.songRow} onClick={handleClick}>

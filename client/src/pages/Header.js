@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import SearchIcon from "@material-ui/icons/Search";
@@ -40,9 +40,9 @@ const useStyles = makeStyles({
 
 });
 
-function Header({ accessToken }) {
+function Header({ accessToken, search, setSearch }) {
   const classes = useStyles();
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useContext(SongContext)
 
   // * This will set the accessToken to the spotify api
