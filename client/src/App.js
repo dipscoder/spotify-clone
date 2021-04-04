@@ -1,5 +1,6 @@
 import Login from "./components/Login";
 import Dashboard from "./pages/Dashboard";
+import { PlayTrackProvider } from "./PlayTrackContext";
 import { SongProvider } from "./SongContext";
 
 // Url - http://localhost:3000/?code=someCode
@@ -10,7 +11,9 @@ function App() {
   
   return (
     <SongProvider>
-      <div className="App">{code ? <Dashboard code={code} /> : <Login />}</div>
+      <PlayTrackProvider>
+        <div className="App">{code ? <Dashboard code={code} /> : <Login />}</div>
+      </PlayTrackProvider>
     </SongProvider>
   );
 }
