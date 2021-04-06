@@ -19,7 +19,7 @@ const Dashboard = ({ code }) => {
   return (
     <div>
       <div className={classes.dashboard__body}>
-        <Sidebar />
+        <Sidebar accessToken={accessToken} />
         <Body accessToken={accessToken} />
       </div>
       <Player accessToken={accessToken} trackUri={playingTrack?.uri} />

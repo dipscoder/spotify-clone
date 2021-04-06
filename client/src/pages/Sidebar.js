@@ -21,11 +21,50 @@ const useStyles = makeStyles({
     height: "70px",
     padding: "10px",
     marginRight: "auto",
+  },
+
+  sidebar__title: {
+    marginLeft: "10px",
+    padding: "5px",
+    fontSize: "12px",
+  },
+
+  options: {
+    "& p":{
+      margin: "10px 0 0 20px",
+      fontSize: "14px",
+    },
+    "& p:hover":{
+      color:"white",
+      cursor:"pointer",
+    }
   }
 });
 
-const Sidebar = () => {
+const Sidebar = ({accessToken}) => {
   const classes = useStyles();
+  const items =[
+    {
+      id: "toplists",
+      name: "Top List",
+    },
+    {
+      id: "party",
+      name: "Party",
+    },
+    {
+      id: "pop",
+      name: "Pop",
+    },
+    {
+      id: "workout",
+      name: "Workout",
+    },
+    {
+      id: "mood",
+      name: "Mood",
+    },
+  ]
   return (
     <div className={classes.sidebar}>
       <img
@@ -39,7 +78,15 @@ const Sidebar = () => {
       <SidebarOption Icon={LibraryMusicIcon} title="Your Library" />
 
       <br />
+      <strong className={classes.sidebar__title}>Playlists</strong>
       <hr />
+
+      <div className={classes.options}>
+        {items.map((item) => (
+          <SidebarOption key={item.id} accessToken={accessToken} id= {item.id} title={item.name} />
+        ))}
+ 
+      </div>
     </div>
   );
 };
