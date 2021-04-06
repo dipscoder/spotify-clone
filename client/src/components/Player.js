@@ -41,6 +41,13 @@ const Player = ({ accessToken, trackUri }) => {
         play={play}
         uris={trackUri ? [trackUri] : []}
         magnifySliderOnHover={true}
+        styles={{
+          bgColor: '#282828',
+          color: '#fff',
+          sliderColor: '#1db954',
+          sliderHandleColor: '#1cb954',
+          trackNameColor: '#fff',
+        }}
       />
     </div>
   );
