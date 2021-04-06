@@ -36,7 +36,9 @@ function SidebarOption({ title,Icon,id, accessToken }) {
     const handleClick = (e)=> {
         // console.log("clicked");
         let category_id = e.target.id
+        
         if(!accessToken) return 
+  
         spotifyApi.setAccessToken(accessToken);
 
         spotifyApi.getPlaylistsForCategory(category_id, {
@@ -44,8 +46,13 @@ function SidebarOption({ title,Icon,id, accessToken }) {
             limit : 1,
             offset : 1
           }).then(data => {
-              console.log(data.body);
+            //   console.log(data.body);
+            spotifyApi.getPlaylist(data.body.playlists.items[0].id)
+            .then(data => {
+                console.log(data);
+            })
           })
+
     }
 
     return (
