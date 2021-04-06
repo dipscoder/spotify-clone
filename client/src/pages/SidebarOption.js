@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { makeStyles } from "@material-ui/core/styles";
 
 import SpotifyWebApi from "spotify-web-api-node";
 import useAuth from '../useAuth';
+import { PlaylistContext } from '../context/PlaylistContext';
 
 const spotifyApi = new SpotifyWebApi({
     clientId: "7b215911d14245089d73d78055353cb2",
@@ -32,11 +33,12 @@ const useStyles = makeStyles({
   
 function SidebarOption({ title,Icon,id, accessToken }) {
     const classes = useStyles()
+    const [playlist, setPlaylist] = useContext(PlaylistContext)
 
     const handleClick = (e)=> {
         // console.log("clicked");
         let category_id = e.target.id
-        
+
         if(!accessToken) return 
   
         spotifyApi.setAccessToken(accessToken);
@@ -49,7 +51,8 @@ function SidebarOption({ title,Icon,id, accessToken }) {
             //   console.log(data.body);
             spotifyApi.getPlaylist(data.body.playlists.items[0].id)
             .then(data => {
-                console.log(data);
+                // console.log(data);
+                setPlaylist(data.body)
             })
           })
 

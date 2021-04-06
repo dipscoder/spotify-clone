@@ -3,6 +3,7 @@ import Dashboard from "./pages/Dashboard";
 import { PlayTrackProvider } from "./context/PlayTrackContext";
 import { SongProvider } from "./context/SongContext";
 import { LyricsProvider } from "./context/LyricsContext";
+import { PlaylistProvider } from "./context/PlaylistContext";
 // Url - http://localhost:3000/?code=someCode
 // This will get url string after the '?' & .get() will get the code value from the url
 const code = new URLSearchParams(window.location.search).get('code')
@@ -13,7 +14,9 @@ function App() {
     <SongProvider>
       <PlayTrackProvider>
         <LyricsProvider>
-          <div className="App">{code ? <Dashboard code={code} /> : <Login />}</div>
+          <PlaylistProvider>
+            <div className="App">{code ? <Dashboard code={code} /> : <Login />}</div>
+          </PlaylistProvider>
         </LyricsProvider>
       </PlayTrackProvider>
     </SongProvider>

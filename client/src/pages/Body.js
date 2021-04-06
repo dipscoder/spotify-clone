@@ -7,6 +7,8 @@ import { SongContext } from "../context/SongContext";
 import { LyricsContext } from '../context/LyricsContext';
 import { PlayTrackContext } from '../context/PlayTrackContext';
 import axios from "axios";
+import { PlaylistContext } from '../context/PlaylistContext';
+import Playlist from './Playlist';
 
 // Styles
 const useStyles = makeStyles({
@@ -39,6 +41,7 @@ const Body = ({accessToken}) => {
     const [searchResult, setSearchResult] = useContext(SongContext)
     const [playingTrack,setPlayingTrack] = useContext(PlayTrackContext)
     const [lyrics,setLyrics] = useContext(LyricsContext)
+    const [playlist, setPlaylist] = useContext(PlaylistContext)
     const [search, setSearch] = useState("")
     
     // To get lyrics
@@ -60,7 +63,7 @@ const Body = ({accessToken}) => {
 
     return (
       <div className={classes.body}>
-        <Header accessToken={accessToken} search={search} setSearch={setSearch} />
+        {playlist===null && <Header accessToken={accessToken} search={search} setSearch={setSearch} />}
         <div className={classes.all__songs}>
           {searchResult.map((track) => {
             return <TrackSearchResult track={track} key={track.uri} setSearch={setSearch} />;
@@ -70,6 +73,8 @@ const Body = ({accessToken}) => {
             <div className={classes.lyrics}>{lyrics}</div>
           )}
         </div>
+        
+        {playlist !== null && <Playlist playlist={playlist} />}
       </div>
     );
 }
