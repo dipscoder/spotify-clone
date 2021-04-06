@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import SearchIcon from "@material-ui/icons/Search";
@@ -37,12 +37,23 @@ const useStyles = makeStyles({
     },
   },
 
+  header__right : {
+    display: "flex",
+    alignItems: "center",
+
+    "& *":{
+      margin: "0px 2px"
+    }
+  },
 
 });
 
 function Header({ accessToken, search, setSearch }) {
   const classes = useStyles();
-  // const [search, setSearch] = useState("");
+  const [user, setUser] = useState({
+    display_name: "",
+    images: [],
+  });
   const [searchResult, setSearchResult] = useContext(SongContext)
 
   // * This will set the accessToken to the spotify api
@@ -50,6 +61,12 @@ function Header({ accessToken, search, setSearch }) {
     if (!accessToken) return;
 
     spotifyApi.setAccessToken(accessToken);
+
+    //Get user details with help of accessToken  
+    spotifyApi.getMe().then(data => {
+      // console.log(data);
+      setUser(data.body)
+    })
   }, [accessToken]);
 
   // * This will give us the response, that we get from spotify api , of our searched term
@@ -105,9 +122,9 @@ function Header({ accessToken, search, setSearch }) {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <div className="header__right">
-        {/* <Avatar src={user?.images[0]?.url} alt={user?.display_name} /> */}
-        {/* <h4>{user?.display_name}</h4> */}
+      <div className={classes.header__right}>
+        <Avatar src={user?.images[0]?.url} alt={user?.display_name} />
+        <h4>{user?.display_name}</h4>
       </div>
  
     </div>
