@@ -64,6 +64,22 @@ const Sidebar = ({accessToken}) => {
       id: "mood",
       name: "Mood",
     },
+    {
+      id: "bollywood",
+      name: "Bollywood",
+    },
+    {
+      id: "devotional",
+      name: "Devotional",
+    },
+    {
+      id: "student",
+      name: "Student",
+    },
+    {
+      id: "hiphop",
+      name: "Hip Hop",
+    },
   ]
   return (
     <div className={classes.sidebar}>
@@ -78,7 +94,7 @@ const Sidebar = ({accessToken}) => {
       <SidebarOption Icon={LibraryMusicIcon} title="Your Library" />
 
       <br />
-      <strong className={classes.sidebar__title}>Playlists</strong>
+      <strong className={classes.sidebar__title}>Playlist Categories</strong>
       <hr />
 
       <div className={classes.options}>
