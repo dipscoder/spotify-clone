@@ -57,6 +57,7 @@ const Body = ({accessToken}) => {
       }).then((res) => {
         // console.log(res);
         setLyrics(res.data.lyrics)
+        setPlaylist(null)
       })
       
     }, [playingTrack])
@@ -69,12 +70,12 @@ const Body = ({accessToken}) => {
             return <TrackSearchResult track={track} key={track.uri} setSearch={setSearch} />;
             // return <h1>Yoo</h1>
           })}
-          {searchResult.length === 0 && (
+          {(searchResult.length === 0 && playlist === null)&& (
             <div className={classes.lyrics}>{lyrics}</div>
           )}
         </div>
         
-        {playlist !== null && <Playlist playlist={playlist} />}
+        {playlist !== null && <Playlist playlist={playlist} setSearch={setSearch} />}
       </div>
     );
 }

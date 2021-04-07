@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { makeStyles } from "@material-ui/core/styles";
 
 import SpotifyWebApi from "spotify-web-api-node";
-import useAuth from '../useAuth';
 import { PlaylistContext } from '../context/PlaylistContext';
 
 const spotifyApi = new SpotifyWebApi({

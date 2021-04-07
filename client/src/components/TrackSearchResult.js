@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { PlayTrackContext } from "../context/PlayTrackContext";
 import { LyricsContext } from "../context/LyricsContext";
+import { PlaylistContext } from "../context/PlaylistContext";
 
 const useStyles = makeStyles({
     songRow : {
@@ -43,11 +44,13 @@ const TrackSearchResult = ({ track, setSearch }) => {
   const classes = useStyles()  
   const [playingTrack, setPlayingTrack] = useContext(PlayTrackContext)
   const [lyrics,setLyrics] = useContext(LyricsContext)
+  const [playlist, setPlaylist] = useContext(PlaylistContext)
 
   function handleClick() {
     setPlayingTrack(track)
     setSearch("")
     setLyrics("")
+    setPlaylist(null)
   }
   return (
     <div className={classes.songRow} onClick={handleClick}>
