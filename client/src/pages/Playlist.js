@@ -55,7 +55,7 @@ const Playlist = ({ playlist, setSearch }) => {
         };
       })
     );
-  }, [playlistTrack]);
+  }, [playlist]);
 
   return (
     <div>
