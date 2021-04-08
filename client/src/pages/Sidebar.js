@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 
 import SidebarOption from "./SidebarOption";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
+
+import SpotifyWebApi from "spotify-web-api-node";
+import { PlaylistContext } from "../context/PlaylistContext";
+const spotifyApi = new SpotifyWebApi({
+  clientId: "7b215911d14245089d73d78055353cb2",
+});
 
 const useStyles = makeStyles({
   sidebar: {
@@ -30,23 +38,36 @@ const useStyles = makeStyles({
   },
 
   options: {
-    "& p":{
+    "& p": {
       margin: "10px 0 0 20px",
       fontSize: "14px",
     },
-    "& p:hover":{
-      color:"white",
-      cursor:"pointer",
-    }
-  }
+    "& p:hover": {
+      color: "white",
+      cursor: "pointer",
+    },
+  },
+
+  buttons: {
+    margin: "10px 0 0 75px",
+    fontSize: "14px",
+    alignItems: "center",
+  },
 });
 
-const Sidebar = ({accessToken}) => {
+const Sidebar = ({ accessToken }) => {
   const classes = useStyles();
-  const items =[
+  const [offsetValue, setOffsetValue] = useState(0);
+  const [playlist, setPlaylist] = useContext(PlaylistContext);
+  const [cId, setCId] = useState("");
+  const items = [
     {
       id: "toplists",
       name: "Top List",
+    },
+    {
+      id: "bollywood",
+      name: "Bollywood",
     },
     {
       id: "party",
@@ -57,16 +78,16 @@ const Sidebar = ({accessToken}) => {
       name: "Pop",
     },
     {
+      id: "romance",
+      name: "Romance",
+    },
+    {
       id: "workout",
       name: "Workout",
     },
     {
       id: "mood",
       name: "Mood",
-    },
-    {
-      id: "bollywood",
-      name: "Bollywood",
     },
     {
       id: "devotional",
@@ -80,7 +101,51 @@ const Sidebar = ({accessToken}) => {
       id: "hiphop",
       name: "Hip Hop",
     },
-  ]
+  ];
+
+  const handlePlaylist = (categoryId) => {
+    if (!accessToken) return;
+    if (!categoryId)  return;
+
+    spotifyApi.setAccessToken(accessToken);
+
+    spotifyApi
+      .getPlaylistsForCategory(categoryId, {
+        country: "IN",
+        limit: 1,
+        offset: offsetValue,
+      })
+      .then((data) => {
+        //   console.log(data.body);
+        //* We setting CId, so that we can hold the categoryId when we toggle the button(+ & -)
+        setCId(categoryId);
+        spotifyApi.getPlaylist(data.body.playlists.items[0].id).then((data) => {
+          // console.log(data);
+          setPlaylist(data.body);
+        });
+      });
+  };
+
+  const handleIncrement = () => {
+    if (offsetValue >= 10) {
+      setOffsetValue(0);
+      return;
+    }
+    setOffsetValue(offsetValue + 1);
+  };
+  const handleDecrement = () => {
+    if (offsetValue <= 0) {
+      setOffsetValue(10);
+      return;
+    }
+    setOffsetValue(offsetValue - 1);
+  };
+
+  // Change playlist whenever offsetValue changes
+  useEffect(() => {
+    handlePlaylist(cId);
+  }, [offsetValue]);
+
   return (
     <div className={classes.sidebar}>
       <img
@@ -93,15 +158,31 @@ const Sidebar = ({accessToken}) => {
       <SidebarOption Icon={SearchIcon} title="Search" />
       <SidebarOption Icon={LibraryMusicIcon} title="Your Library" />
 
+      <div className={classes.buttons}>
+        <ButtonGroup
+          size="small"
+          aria-label="small outlined button group"
+          color="inherit"
+        >
+          <Button onClick={handleDecrement}>-</Button>
+          <Button>{offsetValue}</Button>
+          <Button onClick={handleIncrement}>+</Button>
+        </ButtonGroup>
+      </div>
+
       <br />
       <strong className={classes.sidebar__title}>Playlist Categories</strong>
       <hr />
 
       <div className={classes.options}>
         {items.map((item) => (
-          <SidebarOption key={item.id} accessToken={accessToken} id= {item.id} title={item.name} />
+          <SidebarOption
+            key={item.id}
+            id={item.id}
+            title={item.name}
+            handlePlaylist={handlePlaylist}
+          />
         ))}
- 
       </div>
     </div>
   );
