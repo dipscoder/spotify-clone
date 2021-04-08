@@ -9,6 +9,8 @@ import { PlayTrackContext } from '../context/PlayTrackContext';
 import axios from "axios";
 import { PlaylistContext } from '../context/PlaylistContext';
 import Playlist from './Playlist';
+import { LikedSongContext } from '../context/LikedSongContext';
+import LikedSongs from './LikedSongs';
 
 // Styles
 const useStyles = makeStyles({
@@ -42,6 +44,7 @@ const Body = ({accessToken}) => {
     const [playingTrack,setPlayingTrack] = useContext(PlayTrackContext)
     const [lyrics,setLyrics] = useContext(LyricsContext)
     const [playlist, setPlaylist] = useContext(PlaylistContext)
+    const [likedSong, setLikedSong] = useContext(LikedSongContext);
     const [search, setSearch] = useState("")
     
     // To get lyrics
@@ -70,12 +73,13 @@ const Body = ({accessToken}) => {
             return <TrackSearchResult track={track} key={track.uri} setSearch={setSearch} />;
             // return <h1>Yoo</h1>
           })}
-          {(searchResult.length === 0 && playlist === null)&& (
+          {(searchResult.length === 0 && playlist === null && likedSong === null)&& (
             <div className={classes.lyrics}>{lyrics}</div>
           )}
         </div>
         
         {playlist !== null && <Playlist playlist={playlist} setSearch={setSearch} />}
+        {likedSong !== null && <LikedSongs likedSong={likedSong} setSearch={setSearch} />}
       </div>
     );
 }

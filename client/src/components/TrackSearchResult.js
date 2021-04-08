@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { PlayTrackContext } from "../context/PlayTrackContext";
 import { LyricsContext } from "../context/LyricsContext";
 import { PlaylistContext } from "../context/PlaylistContext";
+import { LikedSongContext } from "../context/LikedSongContext";
 
 const useStyles = makeStyles({
     songRow : {
@@ -45,12 +46,14 @@ const TrackSearchResult = ({ track, setSearch }) => {
   const [playingTrack, setPlayingTrack] = useContext(PlayTrackContext)
   const [lyrics,setLyrics] = useContext(LyricsContext)
   const [playlist, setPlaylist] = useContext(PlaylistContext)
+  const [likedSong, setLikedSong] = useContext(LikedSongContext);
 
   function handleClick() {
     setPlayingTrack(track)
     setSearch("")
     setLyrics("")
     setPlaylist(null)
+    setLikedSong(null)
   }
   return (
     <div className={classes.songRow} onClick={handleClick}>

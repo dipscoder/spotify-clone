@@ -22,20 +22,24 @@ const useStyles = makeStyles({
   },
 });
 
-function SidebarOption({ title, Icon, id, handlePlaylist }) {
+function SidebarOption({ title, Icon, id, handlePlaylist, handleLikedSongs }) {
   const classes = useStyles();
 
   // Moved getPlaylist to Sidebar, so that we shuffle through different playlists
-  
+
   const handleClick = (e) => {
     handlePlaylist(e.target.id);
+  };
+
+  const handleLike = () => {
+    handleLikedSongs();
   };
 
   return (
     <div className={classes.sidebarOption}>
       {Icon && <Icon className={classes.sidebarOption__icon} />}
       {Icon ? (
-        <h4>{title}</h4>
+        <h4 onClick={title === "Your Liked Songs" ? handleLike : null}>{title}</h4>
       ) : (
         <p id={id} onClick={handleClick}>
           {title}

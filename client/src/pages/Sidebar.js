@@ -7,10 +7,11 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import SidebarOption from "./SidebarOption";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
-import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import SpotifyWebApi from "spotify-web-api-node";
 import { PlaylistContext } from "../context/PlaylistContext";
+import { LikedSongContext } from "../context/LikedSongContext";
 const spotifyApi = new SpotifyWebApi({
   clientId: "7b215911d14245089d73d78055353cb2",
 });
@@ -59,6 +60,7 @@ const Sidebar = ({ accessToken }) => {
   const classes = useStyles();
   const [offsetValue, setOffsetValue] = useState(0);
   const [playlist, setPlaylist] = useContext(PlaylistContext);
+  const [likedSong, setLikedSong] = useContext(LikedSongContext);
   const [cId, setCId] = useState("");
   const items = [
     {
@@ -122,10 +124,28 @@ const Sidebar = ({ accessToken }) => {
         spotifyApi.getPlaylist(data.body.playlists.items[0].id).then((data) => {
           // console.log(data);
           setPlaylist(data.body);
+          setLikedSong(null)
         });
       });
   };
 
+  const handleLikedSongs = () => {
+    // console.log("likiiiee");
+    if (!accessToken) return;
+    spotifyApi.setAccessToken(accessToken);
+
+    spotifyApi.getMySavedTracks({
+        limit : 20,
+        offset: 0
+      })
+      .then(function(data) {
+        // console.log(data);
+        setLikedSong(data.body)
+        setPlaylist(null)
+        setCId("")
+      })
+
+  }
   const handleIncrement = () => {
     if (offsetValue >= 10) {
       setOffsetValue(0);
@@ -156,7 +176,7 @@ const Sidebar = ({ accessToken }) => {
 
       <SidebarOption Icon={HomeIcon} title="Home" />
       <SidebarOption Icon={SearchIcon} title="Search" />
-      <SidebarOption Icon={LibraryMusicIcon} title="Your Library" />
+      <SidebarOption Icon={FavoriteIcon} title="Your Liked Songs" handleLikedSongs={handleLikedSongs} />
 
       <div className={classes.buttons}>
         <ButtonGroup
