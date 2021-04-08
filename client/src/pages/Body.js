@@ -67,7 +67,7 @@ const Body = ({accessToken}) => {
 
     return (
       <div className={classes.body}>
-        {playlist===null && <Header accessToken={accessToken} search={search} setSearch={setSearch} />}
+        {(playlist===null && likedSong===null) && <Header accessToken={accessToken} search={search} setSearch={setSearch} />}
         <div className={classes.all__songs}>
           {searchResult.map((track) => {
             return <TrackSearchResult track={track} key={track.uri} setSearch={setSearch} />;
