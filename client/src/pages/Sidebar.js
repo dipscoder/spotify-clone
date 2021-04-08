@@ -6,7 +6,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 
 import SidebarOption from "./SidebarOption";
 import HomeIcon from "@material-ui/icons/Home";
-import SearchIcon from "@material-ui/icons/Search";
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import SpotifyWebApi from "spotify-web-api-node";
@@ -146,6 +146,11 @@ const Sidebar = ({ accessToken }) => {
       })
 
   }
+  const handleHomePage = () => {
+    setLikedSong(null)
+    setPlaylist(null)
+    setCId("")
+  }
   const handleIncrement = () => {
     if (offsetValue >= 10) {
       setOffsetValue(0);
@@ -174,9 +179,10 @@ const Sidebar = ({ accessToken }) => {
         alt="Spotify-Logo"
       />
 
-      <SidebarOption Icon={HomeIcon} title="Home" />
-      <SidebarOption Icon={SearchIcon} title="Search" />
+      <SidebarOption id="Home" Icon={HomeIcon} title="Home" handleHomePage={handleHomePage} />
+      <SidebarOption id="Home" Icon={MusicNoteIcon} title="Lyrics" handleHomePage={handleHomePage} />
       <SidebarOption
+        id="Like"
         Icon={FavoriteIcon}
         title="Your Liked Songs"
         handleLikedSongs={handleLikedSongs}
