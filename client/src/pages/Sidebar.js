@@ -176,19 +176,28 @@ const Sidebar = ({ accessToken }) => {
 
       <SidebarOption Icon={HomeIcon} title="Home" />
       <SidebarOption Icon={SearchIcon} title="Search" />
-      <SidebarOption Icon={FavoriteIcon} title="Your Liked Songs" handleLikedSongs={handleLikedSongs} />
+      <SidebarOption
+        Icon={FavoriteIcon}
+        title="Your Liked Songs"
+        handleLikedSongs={handleLikedSongs}
+      />
 
-      <div className={classes.buttons}>
-        <ButtonGroup
-          size="small"
-          aria-label="small outlined button group"
-          color="inherit"
-        >
-          <Button onClick={handleDecrement}>-</Button>
-          <Button>{offsetValue}</Button>
-          <Button onClick={handleIncrement}>+</Button>
-        </ButtonGroup>
-      </div>
+      {playlist !== null && (
+        <>
+          <p> &emsp; Suffle Between Different Playlists!😉 </p>
+          <div className={classes.buttons}>
+            <ButtonGroup
+              size="small"
+              aria-label="small outlined button group"
+              color="inherit"
+            >
+              <Button onClick={handleDecrement}>-</Button>
+              <Button>{offsetValue}</Button>
+              <Button onClick={handleIncrement}>+</Button>
+            </ButtonGroup>
+          </div>
+        </>
+      )}
 
       <br />
       <strong className={classes.sidebar__title}>Playlist Categories</strong>
