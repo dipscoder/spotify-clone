@@ -8,6 +8,7 @@ const app = express()
 app.use(cors())
 app.use(express.json()); //Used to parse JSON bodies
 
+const port = process.env.PORT || 9000;
 
 const credentials = {
   clientId: process.env.CLIENT_ID,
@@ -68,4 +69,4 @@ app.get('/lyrics', async (req,res)=> {
   res.json({ lyrics })
 })
 
-app.listen(9000)
+app.listen(port,() => console.log(`Listening at port: ${port}`))
