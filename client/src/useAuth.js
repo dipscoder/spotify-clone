@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "./axios";
 
 export default function useAuth(code) {
   const [accessToken, setAccessToken] = useState();
@@ -8,7 +8,7 @@ export default function useAuth(code) {
 
   useEffect(() => {
     axios
-      .post("http://localhost:9000/login", { code })
+      .post("/login", { code })
       .then((response) => {
         //   If success then cut the code string from the URL and execute the other thing
         window.history.pushState({}, null, "/");
@@ -34,7 +34,7 @@ export default function useAuth(code) {
     let interval = setInterval(() => {
       
       axios
-      .post("http://localhost:9000/refresh", { refreshToken })
+      .post("/refresh", { refreshToken })
       .then((response) => {
         // console.log(response.data);
         setAccessToken(response.data.accessToken);

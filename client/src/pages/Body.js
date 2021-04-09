@@ -6,7 +6,7 @@ import TrackSearchResult from '../components/TrackSearchResult';
 import { SongContext } from "../context/SongContext";
 import { LyricsContext } from '../context/LyricsContext';
 import { PlayTrackContext } from '../context/PlayTrackContext';
-import axios from "axios";
+import axios from "../axios";
 import { PlaylistContext } from '../context/PlaylistContext';
 import Playlist from './Playlist';
 import { LikedSongContext } from '../context/LikedSongContext';
@@ -52,7 +52,7 @@ const Body = ({accessToken}) => {
 
       if(!playingTrack) return;
 
-      axios.get("http://localhost:9000/lyrics",{
+      axios.get("/lyrics",{
         params: {
           title: playingTrack.title,
           artist: playingTrack.artist,
