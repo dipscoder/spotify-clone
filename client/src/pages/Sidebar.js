@@ -12,6 +12,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import SpotifyWebApi from "spotify-web-api-node";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { LikedSongContext } from "../context/LikedSongContext";
+import { SongContext } from "../context/SongContext";
+
 const spotifyApi = new SpotifyWebApi({
   clientId: "7b215911d14245089d73d78055353cb2",
 });
@@ -61,6 +63,7 @@ const Sidebar = ({ accessToken }) => {
   const [offsetValue, setOffsetValue] = useState(0);
   const [playlist, setPlaylist] = useContext(PlaylistContext);
   const [likedSong, setLikedSong] = useContext(LikedSongContext);
+  const [searchResult, setSearchResult] = useContext(SongContext)
   const [cId, setCId] = useState("");
   const items = [
     {
@@ -125,6 +128,7 @@ const Sidebar = ({ accessToken }) => {
           // console.log(data);
           setPlaylist(data.body);
           setLikedSong(null)
+          setSearchResult([])
         });
       });
   };
@@ -143,6 +147,7 @@ const Sidebar = ({ accessToken }) => {
         setLikedSong(data.body)
         setPlaylist(null)
         setCId("")
+        setSearchResult([])
       })
 
   }
