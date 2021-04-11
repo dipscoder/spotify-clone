@@ -1,4 +1,5 @@
 # Spotify Clone
+- Link - https://spotify-clone-client.netlify.app/
 
 ### Requirements
 - Please refer to spotify [documentation](https://developer.spotify.com/documentation/web-playback-sdk/) and check all the requirements for playing the songs.
@@ -11,3 +12,13 @@
 
 ### Setup
 - run ```npm i && npm start``` for both client and server side to start the development server
+
+### Screenshots
+
+![screencapture-spotify-clone-client-netlify-app-2021-04-09-22_05_00](https://user-images.githubusercontent.com/68822438/114312837-b34f4c80-9b11-11eb-931a-6803b9503b33.png)
+
+![screencapture-spotify-clone-client-netlify-app-2021-04-09-22_07_08](https://user-images.githubusercontent.com/68822438/114312845-bba78780-9b11-11eb-861b-7fbbf719a39c.png)
+
+![screencapture-spotify-clone-client-netlify-app-2021-04-09-22_07_52](https://user-images.githubusercontent.com/68822438/114312850-bfd3a500-9b11-11eb-9a49-c5d8ecb1d88f.png)
+
+![screencapture-spotify-clone-client-netlify-app-2021-04-09-22_08_21](https://user-images.githubusercontent.com/68822438/114312854-c3672c00-9b11-11eb-92ba-a6b9fc01a2c5.png)
