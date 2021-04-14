@@ -10,6 +10,14 @@
 - [react-spotify-web-playback](https://www.npmjs.com/package/react-spotify-web-playback) for the player.
 - [lyrics-finder](https://www.npmjs.com/package/lyrics-finder) for finding the lyrics of any song.
 
+### Features 
+- Authorization with Spotify Auth
+- You can choose between different popular Playlists Categories.
+- Found the category but didn't like the playlist! - Shuffle between 10 different playlists in each category!😄
+- Want to sing along? - No worries, read the lyrics & let your singer come out.
+- Couldn't find your fav song in the playlists? - Search by any song, artist, or album name.
+- Like something! - Click the 💚 icon & add any song in your Liked songs category
+
 ### Setup
 - run ```npm i && npm start``` for both client and server side to start the development server
 
