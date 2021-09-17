@@ -1,6 +1,12 @@
 # Spotify Clone
 - Link - https://spotify-clone-client.netlify.app/
 
+### Demo
+
+https://user-images.githubusercontent.com/68822438/133827338-fcbd9de1-aae9-40b3-9a71-50bd2faa1223.mp4
+
+
+
 ### Requirements
 - Please refer to spotify [documentation](https://developer.spotify.com/documentation/web-playback-sdk/) and check all the requirements for playing the songs.
 - Check the [supported browser](https://developer.spotify.com/documentation/web-playback-sdk/#supported-browsers) list. This library will try to use the user's devices to work with mobile and unsupported browsers.
