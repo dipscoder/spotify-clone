@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const instance = axios.create({
-    baseURL: "http://localhost:9000",
+    baseURL: window.location.hostname === "localhost" ? "http://localhost:9000" : "https://spotify-clone-server.vercel.app/"
 })
 
 export default instance
